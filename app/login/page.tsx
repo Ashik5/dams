@@ -5,12 +5,11 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "../store/userStore";
-import { useMutation } from "@tanstack/react-query";
-import { loginUser } from "../lib/apiService";
+import api from "../lib/api";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -26,6 +25,7 @@ type UserRole = "PATIENT" | "DOCTOR";
 const LoginPage: React.FC = () => {
   const [selectedRole, setSelectedRole] = useState<UserRole>("PATIENT");
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { setUser, setToken } = useUserStore();
 
@@ -37,55 +37,53 @@ const LoginPage: React.FC = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const loginMutation = useMutation({
-    mutationFn: loginUser,
-    onSuccess: (response: LoginResponseData) => {
-      const responseData = response.data || response;
-      const userData = responseData.user || responseData;
-      const token = responseData.token;
+  const onSubmit = async (data: LoginFormInputs) => {
+    setIsLoading(true);
+    const toastId = toast.loading("Signing in...");
 
-      if (!token || !userData || !userData.role) {
-        toast.error("Login failed: Invalid response from server.");
-        setToken(null);
-        setUser(null);
-        return;
+    try {
+      const payload = {
+        email: data.email,
+        password: data.password,
+        role: selectedRole,
+      };
+
+      const loginResponse = await api.post("/auth/login", payload);
+      const token = loginResponse.data.token;
+
+      if (!token) {
+        throw new Error("Login failed: No token received.");
       }
 
       setToken(token);
+
+      const profileResponse = await api.get("/auth/profile");
+      const userData = profileResponse.data;
+
       setUser(userData);
 
-      toast.success("Login successful! Redirecting...");
+      toast.success("Login successful! Redirecting...", { id: toastId });
 
       if (userData.role === "PATIENT") {
-        router.push("patient/dashboard");
+        router.push("/patient/dashboard");
       } else if (userData.role === "DOCTOR") {
         router.push("/doctor/dashboard");
       } else {
-        toast.error("Unknown user role.");
+        toast.error("Unknown user role.", { id: toastId });
         router.push("/");
       }
-    },
-    onError: (error: AxiosError) => {
+    } catch (error) {
       const errorMessage =
         axios.isAxiosError(error) && error.response?.data?.message
           ? error.response.data.message
           : "Login failed. Please check your credentials.";
-      toast.error(errorMessage);
+      toast.error(errorMessage, { id: toastId });
       setToken(null);
       setUser(null);
-    },
-  });
-
-  const onSubmit = async (data: LoginFormInputs) => {
-    const payload = {
-      email: data.email,
-      password: data.password,
-      role: selectedRole,
-    };
-    loginMutation.mutate(payload);
+    } finally {
+      setIsLoading(false);
+    }
   };
-
-  const isLoading = loginMutation.isPending;
 
   return (
     <>

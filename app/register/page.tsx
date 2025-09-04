@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import {
   registerPatient,
   registerDoctor,
@@ -20,8 +20,10 @@ const registerSchema = z
     email: z.string().email("Invalid email address"),
     password: z.string().min(6, "Password must be at least 6 characters"),
     confirmPassword: z.string().min(1, "Confirm password is required"),
-    role: z.enum(["PATIENT", "DOCTOR"], { message: "Role is required" }),
-    specialization: z.string().min(1, "Specialization is required").optional(), // Optional for doctors
+    role: z.enum(["PATIENT", "DOCTOR"], {
+      errorMap: () => ({ message: "Role is required" }),
+    }),
+    specialization: z.string().optional(), // Optional for doctors
     photo_url: z.string().url("Invalid URL").optional().or(z.literal("")), // Optional photo URL
   })
   .refine((data) => data.password === data.confirmPassword, {
@@ -47,6 +49,7 @@ const RegisterPage: React.FC = () => {
   const [selectedRole, setSelectedRole] = useState<"PATIENT" | "DOCTOR">(
     "PATIENT"
   );
+  const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const router = useRouter();
@@ -73,54 +76,25 @@ const RegisterPage: React.FC = () => {
     setValue("role", selectedRole);
   }, [selectedRole, setValue]);
 
-  const patientMutation = useMutation({
-    mutationFn: registerPatient,
-    onSuccess: () => {
-      toast.success("Registration successful! Please log in.");
+  const onSubmit = async (data: RegisterFormInputs) => {
+    setIsLoading(true);
+    const toastId = toast.loading("Creating account...");
+
+    try {
+      const registerFn =
+        data.role === "PATIENT" ? registerPatient : registerDoctor;
+      await registerFn(data);
+      toast.success("Registration successful! Please log in.", { id: toastId });
       router.push("/login");
-    },
-    onError: (error: any) => {
+    } catch (error: unknown) {
       const errorMessage =
-        error.response?.data?.message || "Registration failed.";
-      toast.error(errorMessage);
-    },
-  });
-
-  const doctorMutation = useMutation({
-    mutationFn: registerDoctor,
-    onSuccess: () => {
-      toast.success("Registration successful! Please log in.");
-      router.push("/login");
-    },
-    onError: (error: any) => {
-      const errorMessage =
-        error.response?.data?.message || "Registration failed.";
-      toast.error(errorMessage);
-    },
-  });
-
-  const onSubmit = async (formData: RegisterFormInputs) => {
-    const { confirmPassword, role, ...rest } = formData; // Exclude confirmPassword and role
-
-    let payload: any = {
-      name: rest.name,
-      email: rest.email,
-      password: rest.password,
-    };
-
-    if (rest.photo_url) {
-      payload.photo_url = rest.photo_url;
-    }
-
-    if (role === "DOCTOR") {
-      payload.specialization = rest.specialization;
-      doctorMutation.mutate(payload);
-    } else {
-      patientMutation.mutate(payload);
+        (error as { response?: { data?: { message?: string } } })?.response
+          ?.data?.message || "Registration failed.";
+      toast.error(errorMessage, { id: toastId });
+    } finally {
+      setIsLoading(false);
     }
   };
-
-  const isLoading = patientMutation.isPending || doctorMutation.isPending;
 
   return (
     <>
