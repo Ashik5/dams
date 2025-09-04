@@ -37,3 +37,14 @@ export interface Appointment {
 
 export type AppointmentStatus = "PENDING" | "COMPLETED" | "CANCELLED";
 export type UserRole = "PATIENT" | "DOCTOR";
+
+export interface LoginResponseData {
+  user: User;
+  token: string;
+}
+
+export interface LoginPayload {
+  email: string;
+  password: string;
+  role: UserRole;
+}

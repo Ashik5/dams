@@ -39,7 +39,7 @@ const LoginPage: React.FC = () => {
 
   const loginMutation = useMutation({
     mutationFn: loginUser,
-    onSuccess: (response) => {
+    onSuccess: (response: LoginResponseData) => {
       const responseData = response.data || response;
       const userData = responseData.user || responseData;
       const token = responseData.token;

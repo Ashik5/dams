@@ -1,10 +1,10 @@
 import api from './api';
-import { AppointmentStatus } from '../types';
+import { AppointmentStatus, LoginPayload, LoginResponseData } from '../types';
 
 // ====================================================================
 // AUTH
 // ====================================================================
-export const loginUser = async (data: any) => {
+export const loginUser = async (data: LoginPayload): Promise<LoginResponseData> => {
   const response = await api.post('/auth/login', data);
   return response.data;
 };
