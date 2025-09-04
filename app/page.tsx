@@ -24,7 +24,7 @@ const SpecializationCard: React.FC<SpecializationCardProps> = ({
   title,
   color,
 }) => (
-  <div className="bg-gray-50 rounded-lg p-6 text-center border border-gray-200 hover:border-green-200 hover:bg-green-50 transition-colors cursor-pointer">
+  <div className="bg-gray-50 rounded-lg p-6 text-center border border-gray-300 hover:border-green-200 hover:bg-green-50 transition-colors cursor-pointer">
     <div
       className={`w-12 h-12 ${color} rounded-lg flex items-center justify-center mx-auto mb-4`}
     >
@@ -58,14 +58,14 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
   features,
   iconBg,
 }) => (
-  <div className="bg-white rounded-lg p-8 border border-gray-200">
+  <div className="bg-white rounded-lg p-8 border border-gray-300">
     <div
       className={`w-12 h-12 ${iconBg} rounded-lg flex items-center justify-center mb-6`}
     >
       {icon}
     </div>
     <h3 className="text-xl font-semibold text-gray-900 mb-4">{title}</h3>
-    <ul className="space-y-3 text-gray-600">
+    <ul className="space-y-3 text-gray-700">
       {features.map((feature, index) => (
         <FeatureListItem key={index}>{feature}</FeatureListItem>
       ))}
@@ -134,7 +134,7 @@ const LandingPage: React.FC = () => {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Navigation */}
-      <nav className="bg-white border-b border-gray-200">
+      <nav className="bg-white border-b border-gray-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <Link href="/" className="flex items-center">
@@ -146,7 +146,7 @@ const LandingPage: React.FC = () => {
             <div className="flex space-x-3">
               <Link
                 href="/login"
-                className="px-4 py-2 text-sm text-gray-700 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+                className="px-4 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
               >
                 Login
               </Link>
@@ -167,7 +167,7 @@ const LandingPage: React.FC = () => {
           <h1 className="text-4xl font-bold text-gray-900 mb-6">
             Streamline Your Healthcare Appointments
           </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto">
             Modern appointment management system connecting patients with
             healthcare providers. Book appointments, manage schedules, and track
             your healthcare journey.
@@ -181,7 +181,7 @@ const LandingPage: React.FC = () => {
             </Link>
             <Link
               href="/register"
-              className="px-6 py-3 border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+              className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
             >
               Join as Doctor
             </Link>
@@ -196,7 +196,7 @@ const LandingPage: React.FC = () => {
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Everything You Need
             </h2>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-gray-700">
               Comprehensive tools for patients and healthcare providers
             </p>
           </div>
@@ -225,7 +225,7 @@ const LandingPage: React.FC = () => {
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Medical Specializations
             </h2>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-gray-700">
               Find healthcare providers across various medical specialties
             </p>
           </div>
@@ -270,7 +270,7 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 py-12">
+      <footer className="bg-white border-t border-gray-300 py-12">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center mb-4 md:mb-0">
@@ -281,7 +281,7 @@ const LandingPage: React.FC = () => {
                 MedCare
               </span>
             </div>
-            <div className="text-gray-600 text-sm">
+            <div className="text-gray-700 text-sm">
               © 2024 MedCare. Streamlining healthcare appointments.
             </div>
           </div>

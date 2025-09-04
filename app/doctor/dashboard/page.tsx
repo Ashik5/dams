@@ -228,7 +228,7 @@ const DoctorDashboard: React.FC = () => {
       case "CANCELLED":
         return "bg-red-100 text-red-700 border-red-200";
       default:
-        return "bg-gray-100 text-gray-700 border-gray-200";
+        return "bg-gray-100 text-gray-700 border-gray-300";
     }
   };
 
@@ -244,11 +244,11 @@ const DoctorDashboard: React.FC = () => {
       <div className="min-h-screen bg-gray-50 flex">
         {/* Sidebar */}
         <div
-          className={`bg-white border-r border-gray-200 flex flex-col transition-all duration-300 ${
+          className={`bg-white border-r border-gray-300 flex flex-col transition-all duration-300 ${
             sidebarCollapsed ? "w-16" : "w-64"
           }`}
         >
-          <div className="p-4 border-b border-gray-200">
+          <div className="p-4 border-b border-gray-300">
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
@@ -259,7 +259,7 @@ const DoctorDashboard: React.FC = () => {
             </div>
           </div>
           <nav className="flex-1 p-4">{/* Nav links */}</nav>
-          <div className="p-4 border-t border-gray-200">
+          <div className="p-4 border-t border-gray-300">
             <div className={`flex items-center`}>
               <div
                 className={`${
@@ -277,7 +277,7 @@ const DoctorDashboard: React.FC = () => {
                   <p className="text-sm font-medium text-gray-900">
                     {user?.name}
                   </p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-gray-600">
                     {user?.specialization}
                   </p>
                 </div>
@@ -285,7 +285,7 @@ const DoctorDashboard: React.FC = () => {
               {!sidebarCollapsed && (
                 <button
                   onClick={logout}
-                  className="text-gray-400 hover:text-gray-600 cursor-pointer"
+                  className="text-gray-500 hover:text-gray-600 cursor-pointer"
                 >
                   <LogOut className="w-4 h-4" />
                 </button>
@@ -296,19 +296,19 @@ const DoctorDashboard: React.FC = () => {
 
         {/* Main Content */}
         <div className="flex-1 flex flex-col overflow-hidden">
-          <div className="bg-white border-b border-gray-200 px-6 py-4">
+          <div className="bg-white border-b border-gray-300 px-6 py-4">
             <h1 className="text-2xl font-semibold text-gray-900">
               Appointments
             </h1>
           </div>
 
           {/* Filters and Search */}
-          <div className="bg-white px-6 py-3 border-b border-gray-200">
+          <div className="bg-white px-6 py-3 border-b border-gray-300">
             <div className="flex items-center gap-3 flex-wrap">
               <select
                 value={appointmentFilter}
                 onChange={(e) => setAppointmentFilter(e.target.value)}
-                className="pl-3 pr-8 py-2 border border-gray-200 rounded-lg text-sm bg-white"
+                className="pl-3 pr-8 py-2 border border-gray-300 rounded-lg text-sm bg-white"
               >
                 <option value="All">All Status</option>
                 <option value="PENDING">Pending</option>
@@ -319,24 +319,24 @@ const DoctorDashboard: React.FC = () => {
                 type="date"
                 value={dateFilter}
                 onChange={(e) => setDateFilter(e.target.value)}
-                className="px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                className="px-3 py-2 border border-gray-300 rounded-lg text-sm"
               />
               <div className="relative flex-1 max-w-md">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Search className="h-4 w-4 text-gray-400" />
+                  <Search className="h-4 w-4 text-gray-500" />
                 </div>
                 <input
                   type="text"
                   placeholder="Search patients..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="block w-full pl-10 pr-10 py-2 border border-gray-200 rounded-lg text-sm focus:ring-green-500 focus:border-green-500"
+                  className="block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg text-sm focus:ring-green-500 focus:border-green-500 placeholder:text-gray-500"
                 />
                 {searchQuery && (
                   <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
                     <button
                       onClick={clearSearch}
-                      className="text-gray-400 hover:text-gray-600"
+                      className="text-gray-500 hover:text-gray-600"
                     >
                       <X className="h-4 w-4" />
                     </button>
@@ -401,7 +401,7 @@ const DoctorDashboard: React.FC = () => {
               <LoadingSpinner />
             ) : (
               <table className="w-full">
-                <thead className="bg-gray-50 border-b border-gray-200 sticky top-0">
+                <thead className="bg-gray-50 border-b border-gray-300 sticky top-0">
                   <tr>
                     <th className="px-6 py-3 text-left">
                       <input
@@ -416,16 +416,16 @@ const DoctorDashboard: React.FC = () => {
                         }}
                       />
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">
                       Patient
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">
                       Date & Time
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">
                       Status
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase">
                       Actions
                     </th>
                   </tr>
@@ -458,7 +458,7 @@ const DoctorDashboard: React.FC = () => {
                           {appointment.patient?.name || "N/A"}
                         </div>
                         {appointment.patient?.email && (
-                          <div className="text-sm text-gray-500">
+                          <div className="text-sm text-gray-600">
                             {appointment.patient.email}
                           </div>
                         )}
@@ -467,7 +467,7 @@ const DoctorDashboard: React.FC = () => {
                         <div className="text-sm text-gray-900">
                           {new Date(appointment.date).toLocaleDateString()}
                         </div>
-                        <div className="text-sm text-gray-500">
+                        <div className="text-sm text-gray-600">
                           {appointment.time}
                         </div>
                       </td>
@@ -520,13 +520,13 @@ const DoctorDashboard: React.FC = () => {
 
             {!isLoadingAppointments && sortedAppointments.length === 0 && (
               <div className="text-center py-12">
-                <div className="text-gray-400 mb-2">
+                <div className="text-gray-500 mb-2">
                   <Search className="w-12 h-12 mx-auto" />
                 </div>
                 <h3 className="text-lg font-medium text-gray-900 mb-2">
                   No appointments found
                 </h3>
-                <p className="text-gray-500">
+                <p className="text-gray-600">
                   {searchQuery || dateFilter || appointmentFilter !== "All"
                     ? "Try adjusting your search or filters"
                     : "No appointments scheduled"}
@@ -536,7 +536,7 @@ const DoctorDashboard: React.FC = () => {
           </div>
 
           {totalPages > 1 && (
-            <div className="bg-white border-t border-gray-200 px-6 py-3">
+            <div className="bg-white border-t border-gray-300 px-6 py-3">
               <div className="flex items-center justify-between">
                 <div className="text-sm text-gray-700">
                   Page {currentPage} of {totalPages}

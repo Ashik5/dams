@@ -100,7 +100,7 @@ const RegisterPage: React.FC = () => {
     <>
       <Toaster position="top-center" reverseOrder={false} />
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 w-full max-w-md p-8">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-300 w-full max-w-md p-8">
           <div className="text-center mb-8">
             <div className="mx-auto w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
               <Stethoscope className="w-6 h-6 text-blue-600" />
@@ -108,7 +108,7 @@ const RegisterPage: React.FC = () => {
             <h1 className="text-2xl font-semibold text-gray-900">
               Create Account
             </h1>
-            <p className="text-gray-600 mt-2">Join our healthcare platform</p>
+            <p className="text-gray-700 mt-2">Join our healthcare platform</p>
           </div>
 
           {/* Role Selection */}
@@ -123,7 +123,7 @@ const RegisterPage: React.FC = () => {
                 className={`p-3 border rounded-lg text-sm font-medium transition-colors cursor-pointer ${
                   selectedRole === "PATIENT"
                     ? "border-blue-500 bg-blue-50 text-blue-700"
-                    : "border-gray-200 hover:border-gray-300"
+                    : "border-gray-300 hover:border-gray-400"
                 }`}
               >
                 <Users className="w-4 h-4 mx-auto mb-1" />
@@ -135,7 +135,7 @@ const RegisterPage: React.FC = () => {
                 className={`p-3 border rounded-lg text-sm font-medium transition-colors cursor-pointer ${
                   selectedRole === "DOCTOR"
                     ? "border-blue-500 bg-blue-50 text-blue-700"
-                    : "border-gray-200 hover:border-gray-300"
+                    : "border-gray-300 hover:border-gray-400"
                 }`}
               >
                 <Stethoscope className="w-4 h-4 mx-auto mb-1" />
@@ -153,7 +153,7 @@ const RegisterPage: React.FC = () => {
               <input
                 type="text"
                 {...register("name")}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-500"
                 placeholder="Enter your full name"
               />
               {errors.name && (
@@ -171,7 +171,7 @@ const RegisterPage: React.FC = () => {
               <input
                 type="email"
                 {...register("email")}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-500"
                 placeholder="Enter your email"
               />
               {errors.email && (
@@ -190,7 +190,7 @@ const RegisterPage: React.FC = () => {
                 <input
                   type={showPassword ? "text" : "password"}
                   {...register("password")}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-10"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-10 placeholder:text-gray-500"
                   placeholder="Enter your password"
                 />
                 <button
@@ -199,9 +199,9 @@ const RegisterPage: React.FC = () => {
                   className="absolute inset-y-0 right-0 pr-3 flex items-center"
                 >
                   {showPassword ? (
-                    <EyeOff className="w-4 h-4 text-gray-400" />
+                    <EyeOff className="w-4 h-4 text-gray-500" />
                   ) : (
-                    <Eye className="w-4 h-4 text-gray-400" />
+                    <Eye className="w-4 h-4 text-gray-500" />
                   )}
                 </button>
               </div>
@@ -221,7 +221,7 @@ const RegisterPage: React.FC = () => {
                 <input
                   type={showConfirmPassword ? "text" : "password"}
                   {...register("confirmPassword")}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-10"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent pr-10 placeholder:text-gray-500"
                   placeholder="Confirm your password"
                 />
                 <button
@@ -230,9 +230,9 @@ const RegisterPage: React.FC = () => {
                   className="absolute inset-y-0 right-0 pr-3 flex items-center"
                 >
                   {showConfirmPassword ? (
-                    <EyeOff className="w-4 h-4 text-gray-400" />
+                    <EyeOff className="w-4 h-4 text-gray-500" />
                   ) : (
-                    <Eye className="w-4 h-4 text-gray-400" />
+                    <Eye className="w-4 h-4 text-gray-500" />
                   )}
                 </button>
               </div>
@@ -251,7 +251,7 @@ const RegisterPage: React.FC = () => {
                 </label>
                 <select
                   {...register("specialization")}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="">Select a specialization</option>
                   {specializationsData?.map((spec) => (
@@ -276,7 +276,7 @@ const RegisterPage: React.FC = () => {
               <input
                 type="url"
                 {...register("photo_url")}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent placeholder:text-gray-500"
                 placeholder="Enter photo URL (optional)"
               />
               {errors.photo_url && (
@@ -296,7 +296,7 @@ const RegisterPage: React.FC = () => {
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-700">
               Already have an account?{" "}
               <Link
                 href="/login"

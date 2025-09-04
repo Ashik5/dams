@@ -4,9 +4,9 @@ import { AppointmentStatus, LoginPayload, LoginResponseData } from '../types';
 // ====================================================================
 // AUTH
 // ====================================================================
-export const loginUser = async (data: LoginPayload): Promise<LoginResponseData> => {
+export const loginUser = async (data: LoginPayload) => {
   const response = await api.post('/auth/login', data);
-  return response.data;
+  return response;
 };
 export const registerPatient = async (data: any) => {
   const response = await api.post('/auth/register/patient', data);

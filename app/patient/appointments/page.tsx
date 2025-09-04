@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Calendar, Stethoscope } from "lucide-react";
+import { Calendar, Stethoscope, Search } from "lucide-react";
 import { useUserStore } from "../../store/userStore";
 import { useRouter } from "next/navigation";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -71,11 +71,11 @@ const PatientAppointments: React.FC = () => {
   return (
     <>
       <Toaster position="top-center" />
-      <div className="bg-white rounded-lg border border-gray-200 p-6 mb-8">
+      <div className="bg-white rounded-lg border border-gray-300 p-6 mb-8">
         <select
           value={appointmentFilter}
           onChange={(e) => { setAppointmentFilter(e.target.value); setPage(1); }}
-          className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="All">All Status</option>
           <option value="PENDING">Pending</option>
@@ -87,7 +87,7 @@ const PatientAppointments: React.FC = () => {
       {isLoading ? <LoadingSpinner /> : (
         <div className="space-y-4">
           {appointments.map((appointment) => (
-            <div key={appointment.id} className="bg-white rounded-lg border border-gray-200 p-6">
+            <div key={appointment.id} className="bg-white rounded-lg border border-gray-300 p-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
@@ -95,8 +95,8 @@ const PatientAppointments: React.FC = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900">{appointment.doctor?.name}</h3>
-                    <p className="text-sm text-gray-600">{appointment.doctor?.specialization}</p>
-                    <p className="text-sm text-gray-600 flex items-center mt-1">
+                    <p className="text-sm text-gray-700">{appointment.doctor?.specialization}</p>
+                    <p className="text-sm text-gray-700 flex items-center mt-1">
                       <Calendar className="w-4 h-4 mr-1" />
                       {new Date(appointment.date).toLocaleDateString()}
                     </p>
@@ -116,8 +116,18 @@ const PatientAppointments: React.FC = () => {
             </div>
           ))}
           {appointments.length === 0 && (
-            <div className="text-center py-8">
-              <p>No appointments found.</p>
+            <div className="text-center py-12">
+              <div className="text-gray-400 mb-2">
+                <Search className="w-12 h-12 mx-auto" />
+              </div>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">
+                No appointments found
+              </h3>
+              <p className="text-gray-500">
+                {appointmentFilter !== "All"
+                  ? "Try adjusting your filter"
+                  : "You have no scheduled appointments"}
+              </p>
             </div>
           )}
         </div>
