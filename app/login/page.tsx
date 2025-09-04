@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { useUserStore } from "../store/userStore";
@@ -65,7 +65,7 @@ const LoginPage: React.FC = () => {
         router.push("/");
       }
     },
-    onError: (error) => {
+    onError: (error: AxiosError) => {
       const errorMessage =
         axios.isAxiosError(error) && error.response?.data?.message
           ? error.response.data.message
